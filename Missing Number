@@ -51,3 +51,21 @@ class Solution {
 
     }
 }
+
+class Solution {
+    public int missingNumber(int[] nums) {
+        int sum = 0;
+        for(int i=0;i<nums.length;i++){
+            sum = sum + nums[i];
+        }
+        return originalSum(nums.length)-sum;
+    }
+
+    public static int originalSum(int num){
+        if(num==0){
+            return 0;
+        }
+        return num + originalSum(num-1);    
+}
+
+}
