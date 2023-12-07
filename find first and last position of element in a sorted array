@@ -84,3 +84,50 @@ class Solution {
         return -1;
     }
 }
+
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int[] index = {-1,-1};
+        index[0] = binarySearch(nums,target);
+        if(index[0]==-1){
+            return index;
+        }
+       
+        int left = index[0]-1;
+        int right = index[0]+1;
+        index[1] = index[0];
+
+        while(left!=-1){
+            if(nums[left]==target){
+                index[0]=left;
+                left--;
+            }else{
+                break;
+            }
+        }
+        while(right!=nums.length){
+            if(nums[right]==target){
+                index[1] = right;
+                right++;
+            }else{
+                break;
+            }
+        }
+        return index;        
+    }
+    public static int binarySearch(int[] nums, int target){
+        int left = 0;
+        int right = nums.length-1;
+        while(left<=right){
+            int mid = (left+right)/2;
+            if(nums[mid]==target){
+                return mid;
+            }else if(nums[mid]>target){
+                right = mid-1;
+            }else{
+                left = mid+1;
+            }
+        }
+        return -1;
+    }
+}
