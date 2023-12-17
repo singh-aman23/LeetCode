@@ -1,0 +1,51 @@
+https://leetcode.com/problems/remove-duplicates-from-sorted-list/
+
+Given the head of a sorted linked list, delete all duplicates such that each element appears only once. Return the linked list sorted as well.
+
+Example 1:
+
+Input: head = [1,1,2]
+Output: [1,2]
+Example 2:
+
+Input: head = [1,1,2,3,3]
+Output: [1,2,3]
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        if(head == null){
+            return null;
+        }
+        ListNode listNode = head;
+        ListNode nextNode = listNode.next;
+        int target = listNode.val;
+        while(nextNode != null){
+            if(nextNode.val == target){
+                if(nextNode.next == null){
+                    listNode.next = null;
+                    break;
+                }
+                nextNode = nextNode.next;
+            }else{
+                target = nextNode.val;
+                listNode.next = nextNode;
+                listNode = nextNode;
+                if(nextNode.next == null){
+                    break;
+                }
+                nextNode = nextNode.next;
+            }
+        }
+        return head;
+    }
+}
