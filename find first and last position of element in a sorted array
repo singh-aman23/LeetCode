@@ -4,8 +4,6 @@ If target is not found in the array, return [-1, -1].
 
 You must write an algorithm with O(log n) runtime complexity.
 
- 
-
 Example 1:
 
 Input: nums = [5,7,7,8,8,10], target = 8
@@ -19,6 +17,7 @@ Example 3:
 Input: nums = [], target = 0
 Output: [-1,-1]
 
+SOLUTION 1:
 class Solution {
     public int[] searchRange(int[] nums, int target) {
         int[] index = {-1,-1};
@@ -85,6 +84,7 @@ class Solution {
     }
 }
 
+SOLUTION 2:
 class Solution {
     public int[] searchRange(int[] nums, int target) {
         int[] index = {-1,-1};
@@ -131,3 +131,50 @@ class Solution {
         return -1;
     }
 }
+
+SOLUTION 3: 
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int[] ans = {-1,-1};
+        if(nums.length == 0 || binarySearch(0, nums.length - 1, nums, target) == -1){
+            return ans;
+        }
+        ans[0] =  binarySearch(0, nums.length - 1, nums, target);
+        if(ans[0] != 0){
+             while(ans[0] != 0){
+            if(binarySearch(0, ans[0] - 1, nums, target) != -1){
+                ans[0] = binarySearch(0, ans[0] - 1, nums, target);
+            }else{
+                break;
+            }
+          }
+        }
+        ans[1] =  binarySearch(0, nums.length - 1, nums, target);
+        if(ans[1] != nums.length -1){
+             while(ans[1] != nums.length-1){
+            if(binarySearch(ans[1] + 1, nums.length - 1, nums, target) != -1){
+                ans[1] = binarySearch(ans[1] + 1, nums.length - 1, nums, target);
+            }else{
+                break;
+            }
+        }
+        }
+    return ans;   
+    }
+
+    public int binarySearch(int left, int right, int[] nums, int target){
+        while(left <= right){
+            int mid = left + (right - left) / 2;
+            if(nums[mid] == target){
+                return mid;
+            }else if(nums[mid] < target){
+                left = mid + 1;
+            }else{
+                right = mid - 1;
+            }
+        }
+        return -1;
+    }
+}
+
+
