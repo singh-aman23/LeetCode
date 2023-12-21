@@ -13,6 +13,7 @@ Example 2:
 Input: head = [0]
 Output: 0
 
+SOLUTION 1: 
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -51,3 +52,32 @@ class Solution {
         return decVal;
     }
 }
+
+SOLUTION 2: (WITHOUT CALCULATING SIZE)
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public int getDecimalValue(ListNode head) {
+        if(head.next == null){
+            return head.val;
+        }
+        int ans = 0;
+        while(head != null){
+            ans = (ans * 2) + head.val;
+            if(head.next == null){
+                break;
+            }
+            head = head.next;
+        }
+        return ans;
+    }
+}
+
