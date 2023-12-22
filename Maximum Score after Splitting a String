@@ -23,6 +23,7 @@ Example 3:
 Input: s = "1111"
 Output: 3
 
+TC: O(n^2)
 class Solution {
     public int maxScore(String s) {
         int maximumScore = 0;
@@ -35,6 +36,38 @@ class Solution {
                 if(zeroes + totalOnes - numberOfOnes(newString) > maximumScore){
                     maximumScore = zeroes + totalOnes - numberOfOnes(newString);
                 }
+            }
+        }
+        return maximumScore;
+    }
+
+    public int numberOfOnes(String s){
+        int ones = 0;
+        for(int i = 0; i < s.length(); i++){
+            if(s.charAt(i) == '1'){
+                ones++;
+            }
+        }
+        return ones;
+    }
+}
+
+TC: O(n)
+class Solution {
+    public int maxScore(String s) {
+        int maximumScore = 0;
+        int totalOnes = numberOfOnes(s);
+        int currZero = 0;
+        int currOne = 0;
+        
+        for(int i = 0; i < s.length() - 1; i++){
+            if(s.charAt(i) == '0'){
+                currZero++;
+            }else{
+                currOne++;
+            }
+            if(currZero + totalOnes - currOne > maximumScore){
+                maximumScore = currZero + totalOnes - currOne;
             }
         }
         return maximumScore;
