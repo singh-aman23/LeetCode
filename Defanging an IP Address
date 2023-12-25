@@ -25,3 +25,10 @@ class Solution {
         return ans;
     }
 }
+
+SOLUTION2:
+class Solution {
+    public String defangIPaddr(String address) {
+        return address.replace(".","[.]");
+    }
+}
