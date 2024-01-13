@@ -1,0 +1,49 @@
+Given an m x n matrix, return all elements of the matrix in spiral order.
+Example 1:
+Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+Output: [1,2,3,6,9,8,7,4,5]
+Example 2:
+Input: matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]
+Output: [1,2,3,4,8,12,11,10,9,5,6,7]
+
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        ArrayList<Integer> ansList = new ArrayList<>();
+        return matrixList(matrix, 0, matrix[0].length - 1,matrix.length - 1, ansList);
+    }
+    public static ArrayList<Integer> matrixList(int[][] matrix, int left, int right,int bottom, ArrayList<Integer> list){
+    int top = left,pointer = left,  helpPointer = top;
+    if(left > right || top > bottom){
+      if(matrix.length == matrix[0].length && matrix.length % 2 != 0){
+        list.add(matrix[matrix.length / 2][matrix.length / 2]);
+      }
+      return list;
+    }
+
+    while(pointer != right){
+      list.add(matrix[top][pointer]);
+      pointer++;
+    }
+    if(top == bottom){
+        list.add(matrix[top][right]);
+        return list;
+    }
+    while(helpPointer != bottom){
+      list.add(matrix[helpPointer][pointer]);
+      helpPointer++;
+    }
+    while(pointer != left){
+      list.add(matrix[bottom][pointer]);
+      pointer--;
+    }
+    if(left == right){
+        list.add(matrix[bottom][right]);
+        return list;
+    }
+    while(helpPointer != top){
+      list.add(matrix[helpPointer][left]);
+      helpPointer--;
+    }
+    return matrixList(matrix, left + 1, right - 1,bottom - 1, list);
+  }
+}
