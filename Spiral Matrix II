@@ -1,0 +1,48 @@
+Given a positive integer n, generate an n x n matrix filled with elements from 1 to n2 in spiral order.
+Example 1:
+Input: n = 3
+Output: [[1,2,3],[8,9,4],[7,6,5]]
+Example 2:
+Input: n = 1
+Output: [[1]]
+
+class Solution {
+    public int[][] generateMatrix(int n) {
+        int[][] myMatrix = new int[n][n];
+         if(n % 2 != 0){
+            myMatrix[n / 2][n / 2] = n * n;
+        }
+        return matrix(0, n - 1, 1,  myMatrix);
+    }
+    public static int[][] matrix(int left, int right, int value, int[][] myMatrix){
+        if(left == right){
+           myMatrix[left][right] = value;
+            return myMatrix;
+        }else if(left > right){
+            return myMatrix;
+        }
+        int top = left, bottom = right, pointerH = left, pointerV = top;
+              
+        while(pointerH != right){
+            myMatrix[top][pointerH] = value;
+            value++;
+            pointerH++;
+        }
+        while(pointerV != bottom){
+            myMatrix[pointerV][right] = value;
+            value++;
+            pointerV++;
+        }
+        while(pointerH != left){
+            myMatrix[bottom][pointerH] = value;
+            value++;
+            pointerH--;
+        }
+        while(pointerV != top){
+            myMatrix[pointerV][left] = value;
+            value++;
+            pointerV--;
+        }
+        return matrix(left + 1, right - 1, value , myMatrix);
+    }
+}
