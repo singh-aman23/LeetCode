@@ -1,0 +1,55 @@
+Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must be unique and you may return the result in any order.
+Example 1:
+Input: nums1 = [1,2,2,1], nums2 = [2,2]
+Output: [2]
+Example 2:
+Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+Output: [9,4]
+Explanation: [4,9] is also accepted.
+
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        int left = 0, right = 1;
+        ArrayList <Integer> list = new ArrayList<>();
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        while(right < nums1.length){
+            if(nums1[right] == nums1[left]){
+                nums1[right] = -1;
+                right++;
+            }else{
+                left = right;
+                right++;
+            }
+        }
+        for(int i = 0; i < nums1.length; i++){
+            if(nums1[i] != -1){
+                if(binarySearch(nums1[i] , nums2) != -1){
+                    list.add(nums1[i]);
+                }
+            }
+        }
+            int[] ansArray = new int[list.size()];
+            for(int i = 0; i < ansArray.length; i++){
+                ansArray[i] = list.get(i);
+            }
+            return ansArray;
+        }
+
+     public int binarySearch(int target, int[] arr){
+        int left = 0, right = arr.length - 1;
+        while(left <= right){
+            int mid = left + (right - left) / 2;
+            if(arr[mid] == target){
+                return mid;
+            }else if(arr[mid] > target){
+                right = mid - 1;
+            }else{
+                left = mid + 1;
+            }
+        }
+        return -1;
+    }
+    
+    }
+   
