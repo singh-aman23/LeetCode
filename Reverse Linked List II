@@ -1,0 +1,62 @@
+Given the head of a singly linked list and two integers left and right where left <= right, reverse the nodes of the list from position left to position right, and return the reversed list.
+Example 1:
+Input: head = [1,2,3,4,5], left = 2, right = 4
+Output: [1,4,3,2,5]
+Example 2:
+Input: head = [5], left = 1, right = 1
+Output: [5]
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        if(head.next == null){
+            return head;
+        }
+        ListNode tempHead = null, tempTail = null, tempNode = head, prevHead = null, afterTail = null;
+        int location = 1;
+        while(tempNode != null){
+            if(location == left){
+                tempHead = tempNode;
+            }
+            if(location == right){
+                tempTail = tempNode;
+            }
+            tempNode = tempNode.next;
+            location++;
+        }
+        tempNode = head;
+        while(tempNode != null){
+            if(tempNode.next == tempHead){
+                prevHead = tempNode;
+            }
+            if(tempNode == tempTail){
+                afterTail = tempNode.next;
+            }
+            tempNode = tempNode.next;
+        }
+        ListNode currNode = tempHead, nextNode = null, prevNode = null;
+        while(currNode != afterTail){
+            nextNode = currNode.next;
+            currNode.next = prevNode;
+            prevNode = currNode;
+            currNode = nextNode;
+        }
+        if(prevHead == null){
+            prevHead = tempTail;
+            tempHead.next = afterTail;
+            return prevHead;
+        }
+        prevHead.next = tempTail;
+        tempHead.next = afterTail;
+        return head;
+    }
+}
