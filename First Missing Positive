@@ -48,4 +48,28 @@ class Solution {
         return nums.length + 1;
     }
 }
- 
+
+import java.util.*;
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+        Stack <Integer> stack = new Stack<>();
+        stack.push(0);
+        Arrays.sort(nums);
+        int ans = 0;
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i] > 0){
+                if(stack.peek() != nums[i]){
+                    stack.push(nums[i]);
+                ans++;
+                if(stack.peek() != ans){
+                    return ans;
+                }
+             }    
+            }
+        }
+        if(stack.size() == 0){
+            return 1;
+        }
+        return stack.pop() + 1;
+    }
+}
