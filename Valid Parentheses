@@ -57,3 +57,40 @@ class Solution {
         return false;
     }
 }
+
+class Solution {
+    public boolean isValid(String s) {
+        if(s.length() % 2 != 0){
+            return false;
+        }
+        Stack <Character> stack = new Stack <> ();
+        char bracket = ' ';
+        for(int i = 0; i < s.length(); i++){
+            bracket = s.charAt(i);
+            if(bracket == '(' || bracket == '[' || bracket == '{'){
+                stack.push(bracket);
+            }else{
+                if(stack.isEmpty()){
+                    return false;
+                }
+                if(bracket == ')'){
+                    if(stack.pop() != '('){
+                        return false;
+                    }
+                }else if(bracket == ']'){
+                    if(stack.pop() != '['){
+                        return false;
+                    }
+                }else if(bracket == '}'){
+                    if(stack.pop() != '{'){
+                        return false;
+                    }
+                }
+            }
+        }
+        if(!stack.isEmpty()){
+            return false;
+        }
+        return true;
+    }
+}
