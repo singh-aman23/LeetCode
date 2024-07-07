@@ -96,5 +96,75 @@ class Solution {
 
             return parent(root.right, childNode);
         }
-
     }
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+ import java.util.*;
+ import java.util.LinkedList;
+
+class Solution {
+    public boolean isCousins(TreeNode root, int x, int y) {
+        if(root == null){
+            return false;
+        }
+        int levelX = -1, levelY = -1, level = -1;
+        TreeNode parentX = null, parentY = null;
+
+        Queue <TreeNode> queue = new LinkedList <TreeNode> ();
+        queue.add(root);
+
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            level++;
+
+            for(int i = 0; i < size; i++){
+                TreeNode currNode = queue.remove();
+
+                if(currNode.left != null){
+                    if(currNode.left.val == x){
+                    parentX = currNode;
+                    levelX = level + 1; 
+                    }
+
+                    if(currNode.left.val == y){
+                    parentY = currNode;
+                    levelY = level + 1; 
+                    }
+                    queue.add(currNode.left);
+                }
+
+                if(currNode.right != null){
+                    if(currNode.right.val == x){
+                    parentX = currNode;
+                    levelX = level + 1;
+                    }
+                    if(currNode.right.val == y){
+                    parentY = currNode;
+                    levelY = level + 1; 
+                    }
+                    queue.add(currNode.right);
+                }
+
+                if(levelX != -1 && levelY != -1){
+                    break;
+                }
+            }
+        }
+
+        return (levelX == levelY) && (parentX != parentY);
+    }
+}
