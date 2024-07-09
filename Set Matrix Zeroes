@@ -29,3 +29,40 @@ class Solution {
             }
     }
 }
+
+import java.util.*;
+
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        ArrayList <Integer> rowList = new ArrayList <> ();
+         ArrayList <Integer> colList = new ArrayList <> ();
+
+         for(int i = 0; i < matrix.length; i++){
+            for(int j = 0; j < matrix[0].length; j++){
+                if(matrix[i][j] == 0){
+                    rowList.add(i);
+                    colList.add(j);
+                }
+            }
+         }
+
+         for(int i = 0; i < rowList.size(); i++){
+            matrix = setRowZero(matrix, rowList.get(i));
+            matrix = setColZero(matrix, colList.get(i));
+         }
+    }
+
+    private int[][] setRowZero(int[][] matrix, int row){
+        for(int i = 0; i < matrix[0].length; i++){
+            matrix[row][i] = 0;
+        }
+        return matrix;
+    }
+
+    private int[][] setColZero(int[][] matrix, int col){
+        for(int i = 0; i < matrix.length; i++){
+            matrix[i][col] = 0;
+        }
+        return matrix;
+    }
+}
