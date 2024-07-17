@@ -64,3 +64,63 @@ class Solution {
 
     }
 }
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        if(list1 == null){
+            return list2;
+        }
+
+        if(list2 == null){
+            return list1;
+        }
+
+        ListNode head = null, temp1 = list1, temp2 = list2, curr = null;
+
+        if(temp1.val <= temp2.val){
+            head = temp1;
+            curr = temp1;
+            temp1 = temp1.next;
+        }else{
+            head = temp2;
+            curr = temp2;
+            temp2 = temp2.next;
+        }
+
+        
+
+        while(temp1 != null && temp2 != null){
+            if(temp1.val == temp2.val){
+                curr.next = temp2;
+                temp2 = temp2.next;
+                curr = curr.next;
+            }else if(temp1.val < temp2.val){
+                curr.next = temp1;
+                temp1 = temp1.next;
+                curr = curr.next;
+            }else{
+                curr.next = temp2;
+                temp2 = temp2.next;
+                curr = curr.next;
+            }
+        }
+
+        if(temp1 == null){
+            curr.next = temp2;
+        }else if(temp2 == null){
+            curr.next = temp1;
+        }
+         return head;
+    }
+}
