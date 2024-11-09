@@ -56,9 +56,26 @@ class Solution {
             }
             num++;
         }
-        return num - 1;
-        
-        
+        return num - 1;  
+    }
+}
+
+class Solution {
+    public int findKthPositive(int[] arr, int k) {
+        int count = 0, num = 1, index = 0;
+        while(index < arr.length){
+            if(num != arr[index]){
+                count++;
+                if(count == k){
+                    return num;
+                }
+            }else{
+                index++;
+            }
+            num++;
+        }
+
+        return num + k - count - 1;
     }
 }
  
