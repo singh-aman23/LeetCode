@@ -33,3 +33,49 @@ class Solution {
         return (double)nums3[nums3.length/2]; 
     }
 }
+
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int m = nums1.length, n = nums2.length, i = 0, j = 0, index = -1, last = -1, secondLast = -1;
+        while(i < m && j < n){
+            if(nums1[i] <= nums2[j]){
+                last = nums1[i];
+                i++;
+            }else{
+                last = nums2[j];
+                j++;
+            }
+            index++;
+            if(index == (m + n -2) / 2){
+                secondLast = last;
+            }
+            if(index == (m + n) / 2){
+                break;
+            }
+        }
+
+        while(i < m && index != (m + n) / 2){
+            last = nums1[i];
+            i++;
+            index++;
+            if(index == (m + n - 2) / 2){
+                secondLast = last;
+            }
+        }
+
+        while(j < n && index != (m + n) / 2){
+            last = nums2[j];
+            j++;
+            index++;
+            if(index == (m + n - 2) / 2){
+                secondLast = last;
+            }
+        }
+
+        if((m + n) % 2 == 0){
+            return (secondLast + last) / 2.0;
+        }
+
+        return last * 1.0;
+    }
+}
