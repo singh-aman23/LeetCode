@@ -44,3 +44,28 @@ class Solution {
         return nums;
     }
 }
+
+class Solution {
+    public int[] sortArrayByParityII(int[] nums) {
+        int index = 0;
+        boolean evenTurn = true;
+        while(index < nums.length){
+            if(evenTurn && nums[index] % 2 != 0){
+                int even = nums.length - 1;
+                while(even > index && nums[even] % 2 != 0) even--;
+                int temp = nums[index];
+                nums[index] = nums[even];
+                nums[even] = temp;
+            }else if(!evenTurn && nums[index] % 2 == 0){
+                int odd = nums.length - 1;
+                while(odd > index && nums[odd] % 2 == 0) odd--;
+                int temp = nums[index];
+                nums[index] = nums[odd];
+                nums[odd] = temp;
+            }
+            index++;
+            evenTurn = !evenTurn;
+        }
+        return nums;
+    }
+}
