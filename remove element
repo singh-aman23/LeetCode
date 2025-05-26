@@ -51,6 +51,16 @@ class Solution {
         }
         Arrays.sort(nums);
         return num;
-        
+    }
+}
+
+class Solution {
+    public int removeElement(int[] nums, int val) {
+        int index = 0, pointer = 0;
+        while(pointer < nums.length){
+            if(nums[pointer] != val) nums[index++] = nums[pointer];
+            pointer++;
+        }
+        return index;
     }
 }
