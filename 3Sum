@@ -63,3 +63,36 @@ class Solution {
         return ans;
     }
 }
+
+import java.util.*;
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        List <List<Integer>> ans = new ArrayList <> ();
+        List <Integer> list;
+        int low = 0;
+        while(low < nums.length - 2){
+            int mid = low + 1, high = nums.length - 1;
+            while(mid < high){
+                int currSum = nums[low] + nums[mid] + nums[high];
+                if(currSum <= 0){
+                    if(currSum == 0){
+                        list = new ArrayList <> ();
+                        list.add(nums[low]);
+                        list.add(nums[mid]);
+                        list.add(nums[high]);
+                        ans.add(list);
+                    }
+                    while(mid < high && nums[mid] == nums[mid + 1]) mid++;
+                    mid++;
+                }else{
+                    while(mid < high && nums[high] == nums[high - 1]) high--;
+                    high--;
+                }
+            }
+            while(low < nums.length - 1 && nums[low] == nums[low + 1]) low++;
+            low++;
+        }
+        return ans;
+    }
+}
