@@ -34,3 +34,41 @@ class Solution {
         return closestSum;
     }
 }
+
+import java.util.*;
+class Solution {
+    public int threeSumClosest(int[] nums, int target) {
+      Arrays.sort(nums);
+      int[] range = {-1 * Integer.MAX_VALUE,Integer.MAX_VALUE};
+      int ans = 0, currSum = 0;
+      for(int low = 0; low < nums.length - 2; low++){
+        int mid = low + 1, high = nums.length - 1;
+        while(mid < high){
+            currSum = nums[low] + nums[mid] + nums[high];
+            if(currSum == target){
+                return target;
+            }else if(currSum > target){
+                high--;
+            }else{
+                mid++;
+            }
+            if(currSum > target){
+            if(currSum < range[1]){
+                ans = currSum;
+                range[1] = currSum;
+                range[0] = 2 * target - currSum;
+            }
+        }else{
+            if(currSum > range[0]){
+                ans = currSum;
+                range[0] = currSum;
+                range[1] = 2 * target - currSum;
+            }
+        }
+        }
+        }
+      return ans;
+      }  
+    }
+
+    
