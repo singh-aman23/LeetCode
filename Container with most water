@@ -44,3 +44,28 @@ class Solution {
         return right;
     }
 }
+
+class Solution {
+    public int maxArea(int[] height) {
+        int low = 0, high = height.length - 1, minHeight = 0, maxWater = 0, currWater = 0;
+
+        while(low < high){
+            minHeight = Math.min(height[low], height[high]);
+            currWater = minHeight * (high - low);
+            maxWater = Math.max(currWater, maxWater);
+
+            if(Math.min(height[low + 1], height[high]) > minHeight){
+                low++;
+            }else if(Math.min(height[low], height[high - 1]) > minHeight){
+                high--;
+            }else{
+                if(height[high] <= height[low]){
+                    high--;
+                }else{
+                    low++;
+                }
+            }
+        }
+        return maxWater;
+    }
+}
